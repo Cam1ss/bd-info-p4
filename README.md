@@ -10,7 +10,7 @@
 </div>
 
 <div>
-    <h2>📍:: About the repository</h2>
+    <h2>📍:: About this repository</h2>
 </div>
 
 <strong> → Professor :</strong>  <a href="https://github.com/ricdtaveira" target="_self" rel="external">Ricardo Duarte Taveira</a> 
