@@ -10,5 +10,9 @@
 </div>
 
 <div>
-    Professor: Taveira
+    <h1> 📍:: About the repository</h1>
 </div>
+
+<strong>▶ Professor:</strong>  <a href="https://github.com/ricdtaveira" target="_self" rel="external">Ricardo Duarte Taveira</a> 
+
+<a> ▶ Repositório criado para postagens de Atividades e Avaliações </a>
