@@ -13,6 +13,12 @@
     <h2>📍:: About the repository</h2>
 </div>
 
-<strong>▶ Professor:</strong>  <a href="https://github.com/ricdtaveira" target="_self" rel="external">Ricardo Duarte Taveira</a> 
+<strong> → Professor :</strong>  <a href="https://github.com/ricdtaveira" target="_self" rel="external">Ricardo Duarte Taveira</a> 
 
-<a> ▶ Repositório criado para postagens de Atividades e Avaliações </a>
+<strong> → Plataformas utilizadas :</strong>
+ 
+  ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+ ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+ ![Replit](https://img.shields.io/badge/Replit-DD1200?style=for-the-badge&logo=Replit&logoColor=white)
+
+<a> → Repositório criado para postagens de Atividades e Avaliações </a>
