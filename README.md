@@ -25,4 +25,3 @@
 
 <strong> → Repositório criado para postagens de Atividades e Avaliações referente a Banco de Dados </strong>
 
-https://www.canva.com/design/DAFxhcDZPKM/rNECaiMcrqIwKZ4VcDGvLQ/edit?utm_content=DAFxhcDZPKM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
