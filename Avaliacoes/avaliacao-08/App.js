@@ -68,14 +68,74 @@ db.run(
     }
 );
 
-// Criar tabela TB_ITENS_FISCAIS
+// Criar tabela TB_PROJETO
 db.run(
-    'CREATE TABLE IF NOT EXISTS TB_ITEM_NOTA_FISCAL (id INTEGER PRIMARY KEY, notafiscal_id INTEGER, quantidade FLOAT, valor_item FLOAT, produto_id INTEGER, unidade INTEGER, foreign key (produto_id) references TB_LABORATORIO (id), foreign key (notafiscal_id) references TB_NOTA_FISCAL (id))',
+    'CREATE TABLE IF NOT EXISTS TB_PROJETO (id INTEGER PRIMARY KEY AUTOINCREMENT, nome STRING, inicio DATE, termino DATE, laboratorio_id INTEGER, professor_id INTEGER, foreign key (laboratorio_id) references TB_LABORATORIO (id), foreign key (professor_id) references TB_PROFESSOR (id))',
     (err) => {
         if (err) {
-            console.error('Erro ao criar tabela TB_ITENS_FISCAIS:', err.message);
+            console.error('Erro ao criar tabela TB_PROJETO:', err.message);
         } else {
-            console.log('Tabela TB_ITENS_FISCAIS criada com sucesso.');
+            console.log('Tabela TB_PROJETO criada com sucesso.');
+        }
+    }
+);
+
+// Criar tabela TB_PROFESSOR
+db.run(
+    'CREATE TABLE IF NOT EXISTS TB_PROFESSOR (id INTEGER PRIMARY KEY AUTOINCREMENT, nome STRING, email STRING, celular STRING)',
+    (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela TB_PROFESSOR:', err.message);
+        } else {
+            console.log('Tabela TB_PROFESSOR criada com sucesso.');
+        }
+    }
+);
+
+// Criar tabela TB_FREQUENCIA
+db.run(
+    'CREATE TABLE IF NOT EXISTS TB_FREQUENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, frequencia_valida E_Frequencia_Valida, projeto_id INTEGER, professor_id INTEGER, bolsista_id INTEGER, horario_planejado_id INTEGER, foreign key (projeto_id) references TB_PROJETO (id), foreign key (professor_id) references TB_PROFESSOR (id), foreign key (bolsista_id) references TB_BOLSISTA (id), foreign key (horario_planejado_id) references TB_HORARIO_PLANEJADO (id) )',
+    (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela TB_FREQUENCIA:', err.message);
+        } else {
+            console.log('Tabela TB_FREQUENCIA criada com sucesso.');
+        }
+    }
+);
+
+// Criar tabela TB_BOLSISTA
+db.run(
+    'CREATE TABLE IF NOT EXISTS TB_BOLSISTA (id INTEGER PRIMARY KEY AUTOINCREMENT, nome STRING, email STRING, celular STRING)',
+    (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela TB_BOLSISTA:', err.message);
+        } else {
+            console.log('Tabela TB_BOLSISTA criada com sucesso.');
+        }
+    }
+);
+
+// Criar tabela TB_HORARIO_PLANEJADO
+db.run(
+    'CREATE TABLE IF NOT EXISTS TB_HORARIO_PLANEJADO (id INTEGER PRIMARY KEY AUTOINCREMENT, bolsista_id INTEGER, ano INTEGER, semestre INTEGER, faixa_horaria_id INTEGER, dia INTEGER, foreign key (bolsista_id) references TB_BOLSISTA (id), foreign key (faixa_horaria_id) references TB_FAIXA_HORARIA (id) )',
+    (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela TB_HORARIO_PLANEJADO:', err.message);
+        } else {
+            console.log('Tabela TB_HORARIO_PLANEJADO criada com sucesso.');
+        }
+    }
+);
+
+// Criar tabela TB_FAIXA_HORARIA
+db.run(
+    'CREATE TABLE IF NOT EXISTS TB_FAIXA_HORARIA (id INTEGER PRIMARY KEY AUTOINCREMENT, turno E_TURNO , faixa_horario E_FAIXA_HORARIA)',
+    (err) => {
+        if (err) {
+            console.error('Erro ao criar tabela TB_FAIXA_HORARIA:', err.message);
+        } else {
+            console.log('Tabela TB_FAIXA_HORARIA criada com sucesso.');
         }
     }
 );
@@ -98,7 +158,7 @@ app.post('/clientes', (req, res) => {
 
 // Criar um vendedor
 app.post('/CAMPUS', (req, res) => {
-    const { nome} = req.body;
+    const { nome } = req.body;
     db.run('INSERT INTO TB_CAMPUS (nome) VALUES (?)', [nome], (err) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -110,8 +170,8 @@ app.post('/CAMPUS', (req, res) => {
 
 // Criar uma nota fiscal 
 app.post('/notasfiscais', (req, res) => {
-    const { id ,valor, cliente_id, vendedor_id} = req.body;
-    db.run('INSERT INTO TB_NOTA_FISCAL (id ,valor, cliente_id, vendedor_id) VALUES (?, ?, ?, ?)', [id ,valor, cliente_id, vendedor_id], (err) => {
+    const { id, valor, cliente_id, vendedor_id } = req.body;
+    db.run('INSERT INTO TB_NOTA_FISCAL (id ,valor, cliente_id, vendedor_id) VALUES (?, ?, ?, ?)', [id, valor, cliente_id, vendedor_id], (err) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -122,7 +182,7 @@ app.post('/notasfiscais', (req, res) => {
 
 // Criar um produto
 app.post('/LABORATORIO', (req, res) => {
-    const { id, descricao, preco_unitario} = req.body;
+    const { id, descricao, preco_unitario } = req.body;
     db.run('INSERT INTO TB_LABORATORIO (id, descricao, preco_unitario) VALUES (?, ?, ?)', [id, descricao, preco_unitario], (err) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -319,7 +379,7 @@ app.put('/CAMPUS/:id', (req, res) => {
 app.put('/notasfiscais/:id', (req, res) => {
     const { id } = req.params;
     const { valor, cliente_id, vendedor_id } = req.body;
-    db.run('UPDATE TB_NOTA_FISCAL SET valor = ?, cliente_id = ?, vendedor_id = ? WHERE id = ?', [valor, cliente_id, vendedor_id , id], (err) => {
+    db.run('UPDATE TB_NOTA_FISCAL SET valor = ?, cliente_id = ?, vendedor_id = ? WHERE id = ?', [valor, cliente_id, vendedor_id, id], (err) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
