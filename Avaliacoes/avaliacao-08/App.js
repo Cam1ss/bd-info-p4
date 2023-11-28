@@ -17,9 +17,6 @@ const db = new sqlite3.Database('BOLSA.db', (err) => {
         console.log('Conectado ao banco de dados SQLite.');
     }
 });
-
-
-
 // Criar tabela TB_IF
 db.run(
     'CREATE TABLE IF NOT EXISTS TB_IF (id INTEGER PRIMARY KEY AUTOINCREMENT, nome_if STRING, ano INTEGER, semestre INTEGER)',
@@ -94,7 +91,7 @@ db.run(
 
 // Criar tabela TB_FREQUENCIA
 db.run(
-    'CREATE TABLE IF NOT EXISTS TB_FREQUENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, frequencia_valida E_Frequencia_Valida, projeto_id INTEGER, professor_id INTEGER, bolsista_id INTEGER, horario_planejado_id INTEGER, foreign key (projeto_id) references TB_PROJETO (id), foreign key (professor_id) references TB_PROFESSOR (id), foreign key (bolsista_id) references TB_BOLSISTA (id), foreign key (horario_planejado_id) references TB_HORARIO_PLANEJADO (id) )',
+    'CREATE TABLE IF NOT EXISTS TB_FREQUENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, frequencia_valida TEXT CHECK (frequencia_valida IN ("NAO", "SIM")), projeto_id INTEGER, professor_id INTEGER, bolsista_id INTEGER, horario_planejado_id INTEGER, foreign key (projeto_id) references TB_PROJETO (id), foreign key (professor_id) references TB_PROFESSOR (id), foreign key (bolsista_id) references TB_BOLSISTA (id), foreign key (horario_planejado_id) references TB_HORARIO_PLANEJADO (id) )',
     (err) => {
         if (err) {
             console.error('Erro ao criar tabela TB_FREQUENCIA:', err.message);
@@ -128,17 +125,20 @@ db.run(
     }
 );
 
-// Criar tabela TB_FAIXA_HORARIA
+
+
+// Criar tabela TB_E_FAIXA_HORARIA
 db.run(
-    'CREATE TABLE IF NOT EXISTS TB_FAIXA_HORARIA (id INTEGER PRIMARY KEY AUTOINCREMENT, turno E_TURNO , faixa_horario E_FAIXA_HORARIA)',
+    'CREATE TABLE IF NOT EXISTS TB_E_FAIXA_HORARIA (id INTEGER PRIMARY KEY AUTOINCREMENT, turno TEXT CHECK (turno IN ("Manhã", "Tarde", "Noite")), faixa_horaria TEXT CHECK ( faixa_horaria IN ( "A-Primeiro_Horario", "B_Segundo_Horario", "C-Terceiro_Horario", "D_Quarto_Horario", "E_Quinto_Horario" )))',
     (err) => {
         if (err) {
-            console.error('Erro ao criar tabela TB_FAIXA_HORARIA:', err.message);
+            console.error('Erro ao criar tabela TB_E_FAIXA_HORARIA:', err.message);
         } else {
-            console.log('Tabela TB_FAIXA_HORARIA criada com sucesso.');
+            console.log('Tabela TB_E_FAIXA_HORARIA criada com sucesso.');
         }
     }
 );
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
